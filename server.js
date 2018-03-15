@@ -39,10 +39,11 @@ app.post('/plant', function (req, res, next) {
 });
 
 app.get('/plant', function (req, res, next) {
+    console.log('get request');
     Plant.find({}, function (err, result) {
         res.status(201).json({
-            message: 'success',
-            obj: result
+            status: 'success',
+            plants: result
         })
     });
 });
