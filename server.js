@@ -15,10 +15,10 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/plant', function (req, res, next) {
+app.post('/plant', function (req, res, next) {
     const plant = new Plant({
-        size_id: 3,
-        lat: 21.0007661,
+        size_id: 1,
+        lat: 22.0007661,
         long: 105.8424172,
         current_water: 1,
         in_need_water: 5,
@@ -38,27 +38,15 @@ app.get('/plant', function (req, res, next) {
     })
 });
 
-// app.post('/plant/:id', function (req, res, next) {
-//     console.log("day la post");
-//     const msg = new Plant({
-//         content: "noi dung"
-//     });
-//
-//     msg.save(function (err, result) {
-//         if (err) {
-//             res.status(500).json({
-//                 message: 'Error',
-//                 error: err
-//             });
-//         }
-//         else {
-//             res.status(201).json({
-//                 message: 'saved',
-//                 result: result
-//             });
-//         }
-//     })
-// });
+app.get('/plant', function (req, res, next) {
+    Plant.find({}, function (err, result) {
+        res.status(201).json({
+            message: 'success',
+            obj: result
+        })
+    });
+});
+
 
 server.listen(port, function () {
     console.log('Listening on port ' + port + '!');
