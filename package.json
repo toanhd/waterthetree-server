@@ -2,8 +2,8 @@
   "name": "waterthetree-server",
   "version": "1.0.0",
   "description": "nodejs + mongodb",
-  "main": "index.js",
   "scripts": {
+    "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/toanhd/waterthetree-server/issues"
   },
-  "homepage": "https://github.com/toanhd/waterthetree-server#readme"
+  "homepage": "https://github.com/toanhd/waterthetree-server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "http": "0.0.0",
+    "mongoose": "^5.0.10"
+  }
 }
