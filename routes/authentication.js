@@ -15,7 +15,7 @@ router.get('/:id', function (req, res, next) {
         }
         if (!user) {
             return res.status(500).json({
-                title: 'No plant found',
+                title: 'No User found',
                 error: {message: 'User not found'}
             })
         }
@@ -26,26 +26,23 @@ router.get('/:id', function (req, res, next) {
     })
 });
 
-router.post('/register', function (req, res, next) {
-    const temp_pwd = 'temppwd'
-    const user = new User({
-        firstName: 'Toan',
-        lastName: 'Han Duc',
-        password: sha256(temp_pwd),
-        email: 'toanhanduc3@gmail.com'
-    });
-    user.save(function (err, user) {
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: err
-            })
-        }
+router.post('/register', async function (req, res, next) {
+    try {
+        const {firstName, lastName, pwd, email} = req.body;
+        const user = new User({
+            firstName, lastName, password: sha256(pwd), email
+        });
         res.status(201).json({
             message: 'user created',
-            user: user
-        })
+            user: await user.save()
     })
+    }
+    catch (err) {
+        return res.status(500).json({
+            title: 'An error occurred',
+            error: err
+        })
+    }
 });
 
 module.exports = router;
