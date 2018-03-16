@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const Plant = require('../models/plant');
 
+router.get('/', function (req, res, next) {
+    console.log('get request');
+    Plant.find({}, function (err, result) {
+        res.status(201).json({
+            status: 'success',
+            plants: result
+        })
+    });
+});
+
 router.post('/', function (req, res, next) {
     const plant = new Plant({
         size_id: 1,
@@ -31,15 +41,6 @@ router.post('/', function (req, res, next) {
     })
 });
 
-router.get('/', function (req, res, next) {
-    console.log('get request');
-    Plant.find({}, function (err, result) {
-        res.status(201).json({
-            status: 'success',
-            plants: result
-        })
-    });
-});
 
 router.patch('/:id', function (req, res, next) {
     Plant.findById(req.params.id, function (err, plant) {
@@ -55,7 +56,8 @@ router.patch('/:id', function (req, res, next) {
                 error: {message: 'Plant not found'}
             })
         }
-        plant.current_water = req.body.current_water;
+        plant.current_water = 3;
+        // plant.current_water = req.body.current_water;
         plant.save(function (err, result) {
             if (err) {
                 return res.status(500).json({
