@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "nodejs + mongodb",
   "scripts": {
-    "start": "nodemon server",
+    "start": "nodemon ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +21,7 @@
     "express": "^4.16.3",
     "http": "0.0.0",
     "mongoose": "^5.0.10",
+    "morgan": "^1.9.0",
     "sha256": "^0.2.0"
   },
   "devDependencies": {

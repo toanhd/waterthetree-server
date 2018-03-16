@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
-const server = require('http').Server(app);
+const logger = require('morgan');
 const bodyParser = require('body-parser');
-const port = 3000;
 const mongoose = require('mongoose');
 
 const plantRoutes = require('./routes/plant');
@@ -11,6 +10,8 @@ const authenRoutes = require('./routes/authentication');
 mongoose.connect('mongodb://localhost:27017/waterthetree');
 
 app.use(bodyParser.json());
+app.use(logger('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,7 +23,9 @@ app.use(function (req, res, next) {
 app.use('/plant', plantRoutes);
 app.use('/authentication', authenRoutes);
 
-server.listen(port, function () {
-    console.log('Listening on port ' + port + '!');
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    console.log('catch 404')
 });
 
+module.exports = app;
