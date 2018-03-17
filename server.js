@@ -4,6 +4,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const appRoutes = require('./routes/default');
 const plantRoutes = require('./routes/plant');
 const authenRoutes = require('./routes/authentication');
 
@@ -22,6 +23,7 @@ app.use(function (req, res, next) {
 
 app.use('/plant', plantRoutes);
 app.use('/authentication', authenRoutes);
+app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -13,13 +13,6 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/test', function (req, res, next) {
-    console.log('go')
-    return res.status(201).json({
-        message: 'success',
-    })
-});
-
 router.post('/', function (req, res, next) {
     const plant = new Plant({
         size_id: req.body.size_id,
