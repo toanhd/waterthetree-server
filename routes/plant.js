@@ -13,9 +13,10 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/test', function () {
-    res.send({
-        status: 'success',
+router.get('/test', function (req, res, next) {
+    console.log('go')
+    return res.status(201).json({
+        message: 'success',
     })
 });
 
