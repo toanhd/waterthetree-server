@@ -20,18 +20,11 @@ router.post('/login', function (req, res, next) {
                 error: {message: 'User not found'}
             })
         }
-        if (sha256(req.body.password) == user.password) {
-            // res.status(200).json({
-            //     loginStatus: true
-            // })
+        if (sha256(req.body.password) === user.password) {
             res.send(true)
         }
         else {
             res.send(false)
-
-            // res.status(404).json({
-            //     loginStatus: 'not ok'
-            // })
         }
     })
 });

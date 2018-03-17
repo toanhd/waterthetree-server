@@ -13,6 +13,12 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.get('/test', function () {
+    res.send({
+        status: 'success',
+    })
+});
+
 router.post('/', function (req, res, next) {
     const plant = new Plant({
         size_id: req.body.size_id,
@@ -73,7 +79,6 @@ router.patch('/:id', async function (req, res, next) {
             error: err
         })
     }
-
 });
 
 router.get('/history/:id', async function (req, res, next) {
