@@ -5,9 +5,9 @@ const History = require('../models/history');
 
 // get all plants
 router.get('/', function (req, res, next) {
-    console.log('get request');
+    console.log('success get all plants');
     Plant.find({}, function (err, result) {
-        res.status(201).json({
+        res.status(200).json({
             status: 'success',
             plants: result
         })
@@ -26,11 +26,13 @@ router.post('/', function (req, res, next) {
     });
     plant.save(function (err, result) {
         if (err) {
+            console.log('An error occurred');
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
+        console.log('plant created');
         res.status(201).json({
             message: 'plant created',
             obj: result
@@ -39,11 +41,12 @@ router.post('/', function (req, res, next) {
 });
 
 // up date current_water_level
-router.patch('/:id', async function (req, res, next) {
+router.patch('/', async function (req, res, next) {
     try {
-        const plant = await Plant.findById(req.params.id);
+        const plant = await Plant.findById(req.body.plant_id);
         if (!plant) {
-            return res.status(422).json({
+            console.log('No plant found');
+            return res.status(404).json({
                 title: 'No plant found',
                 error: {message: 'Plant not found'}
             })
@@ -65,7 +68,6 @@ router.patch('/:id', async function (req, res, next) {
                 }
             },
             {upsert: true});
-
         res.send({plantResult, historyResult});
     }
     catch (err) {
