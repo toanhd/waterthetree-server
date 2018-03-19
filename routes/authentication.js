@@ -21,7 +21,10 @@ router.post('/login', function (req, res, next) {
             })
         }
         if (sha256(req.body.password) === user.password) {
-            res.send(true)
+            return res.status(200).json({
+                msg: 'success login',
+                user: user
+            })
         }
         else {
             res.send(false)

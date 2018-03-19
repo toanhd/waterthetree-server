@@ -3,6 +3,7 @@ const router = express.Router();
 const Plant = require('../models/plant');
 const History = require('../models/history');
 
+// get all plants
 router.get('/', function (req, res, next) {
     console.log('get request');
     Plant.find({}, function (err, result) {
@@ -13,13 +14,14 @@ router.get('/', function (req, res, next) {
     });
 });
 
+// create plant
 router.post('/', function (req, res, next) {
     const plant = new Plant({
         size_id: req.body.size_id,
         lat: req.body.lat,
         long: req.body.long,
-        current_water: req.body.current_water,
-        in_need_water: req.body.in_need_water,
+        current_water_level: req.body.current_water_level,
+        max_water_level: req.body.max_water_level,
         history_id: req.body.history_id
     });
     plant.save(function (err, result) {
@@ -36,7 +38,7 @@ router.post('/', function (req, res, next) {
     })
 });
 
-
+// up date current_water_level
 router.patch('/:id', async function (req, res, next) {
     try {
         const plant = await Plant.findById(req.params.id);
@@ -46,7 +48,7 @@ router.patch('/:id', async function (req, res, next) {
                 error: {message: 'Plant not found'}
             })
         }
-        plant.current_water = req.body.current_water;
+        plant.current_water_level = req.body.current_water_level;
         const plantResult = await plant.save();
 
         // Update history

@@ -5,9 +5,7 @@ const WaterSource = require('../models/water-resource');
 
 router.post('/', function (req, res, next) {
     const {lat, long, description} = req.body;
-    const waterSource = new WaterSource({
-        lat, long, description
-    });
+    const waterSource = new WaterSource({lat, long, description});
     waterSource.save(function (err, waterrsc) {
         if (err) {
             return res.status(500).json({
@@ -22,6 +20,7 @@ router.post('/', function (req, res, next) {
     })
 });
 
+// get all water resource
 router.get('/', function (req, res, next) {
     WaterSource.find({}, function (err, waterrsc) {
         res.status(200).json({
