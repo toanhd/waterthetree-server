@@ -9,6 +9,8 @@ const plantRoutes = require('./routes/plant');
 const authenRoutes = require('./routes/authentication');
 const waterRoutes = require('./routes/water-resource');
 
+require('console-stamp')(console, '[HH:MM:ss.l]');
+
 mongoose.connect('mongodb://localhost:27017/waterthetree');
 
 app.use(bodyParser.json());

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/toanhd/waterthetree-server#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "console-stamp": "^0.2.6",
     "express": "^4.16.3",
     "http": "0.0.0",
     "mongoose": "^5.0.10",
