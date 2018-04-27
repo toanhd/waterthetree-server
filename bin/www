@@ -12,7 +12,7 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '8080');
 app.set('port', port);
 
 /**
@@ -31,9 +31,10 @@ const io = require('socket.io')(server, {
 
 // io
 io.on('connection', function (socket) {
-    socket.emit('msg', {msg: 'Welcome bro!'});
+    socket.emit('msg',{msg: 'Welcome bro!'});
     socket.on('msg', function (msg) {
-        socket.emit('msg', {msg: "you sent : " + msg});
+	console.log(msg);
+        socket.broadcast.emit('msg', {msg: "you sent : " + msg});
     })
 });
 
