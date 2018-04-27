@@ -1,13 +1,14 @@
-const express = require('express');
-const app = express();
+// const express = require('express');
+const app = require('express')();
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const appRoutes = require('./routes/default');
 const plantRoutes = require('./routes/plant');
-const authenRoutes = require('./routes/authentication');
+const authentRoutes = require('./routes/authentication');
 const waterRoutes = require('./routes/water-resource');
+
 
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
@@ -25,13 +26,13 @@ app.use(function (req, res, next) {
 });
 
 app.use('/plant', plantRoutes);
-app.use('/authentication', authenRoutes);
+app.use('/authentication', authentRoutes);
 app.use('/water-resource', waterRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
-//     console.log('catch 404')
+//     console.log('catch 404');
 // });
 
 module.exports = app;

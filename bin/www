@@ -20,6 +20,31 @@ app.set('port', port);
  */
 
 const server = http.createServer(app);
+const io = require('socket.io')(server, {
+    path: '/test',
+    // serveClient: false,
+    // // below are engine.IO options
+    // pingInterval: 10000,
+    // pingTimeout: 5000,
+    // cookie: false
+});
+
+// io
+io.on('connection', () => {
+    console.log('io connected');
+    // socket.on('disconnect', function () {
+    //     io.emit('users-changed', {user: socket.nickname, event: 'left'});
+    // });
+    //
+    // socket.on('set-nickname', (nickname) => {
+    //     socket.nickname = nickname;
+    //     io.emit('users-changed', {user: nickname, event: 'joined'});
+    // });
+    //
+    // socket.on('add-message', (message) => {
+    //     io.emit('message', {text: message.text, from: socket.nickname, created: new Date()});
+    // });
+});
 
 /**
  * Listen on provided port, on all network interfaces.
