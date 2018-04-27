@@ -21,7 +21,7 @@ app.set('port', port);
 
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
-    path: '/test',
+    // path: '/test',
     // serveClient: false,
     // // below are engine.IO options
     // pingInterval: 10000,
@@ -30,20 +30,11 @@ const io = require('socket.io')(server, {
 });
 
 // io
-io.on('connection', () => {
-    console.log('io connected');
-    // socket.on('disconnect', function () {
-    //     io.emit('users-changed', {user: socket.nickname, event: 'left'});
-    // });
-    //
-    // socket.on('set-nickname', (nickname) => {
-    //     socket.nickname = nickname;
-    //     io.emit('users-changed', {user: nickname, event: 'joined'});
-    // });
-    //
-    // socket.on('add-message', (message) => {
-    //     io.emit('message', {text: message.text, from: socket.nickname, created: new Date()});
-    // });
+io.on('connection', function (socket) {
+    socket.emit('msg', {msg: 'Welcome bro!'});
+    socket.on('msg', function (msg) {
+        socket.emit('msg', {msg: "you sent : " + msg});
+    })
 });
 
 /**

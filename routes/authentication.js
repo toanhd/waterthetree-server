@@ -22,12 +22,14 @@ router.post('/login', function (req, res, next) {
         }
         if (sha256(req.body.password) === user.password) {
             return res.status(200).json({
-                msg: 'success login',
+                login:true,
                 user: user
             })
         }
         else {
-            res.send(false)
+            res.send({
+                login:false
+            })
         }
     })
 });
@@ -56,9 +58,9 @@ router.get('/:id', function (req, res, next) {
 
 router.post('/register', async function (req, res, next) {
     try {
-        const {firstName, lastName, pwd, email} = req.body;
+        const {firstName, lastName, password, type, email} = req.body;
         const user = new User({
-            firstName, lastName, password: sha256(pwd), email
+            firstName, lastName, password: sha256(password), type, email
         });
         res.status(201).json({
             message: 'user created',
