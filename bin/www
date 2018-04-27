@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
     socket.emit('msg', {msg: 'Welcome bro!'});
     socket.on('msg', function (msg) {
         console.log(msg);
-        socket.broadcast.emit('msg', {msg: "you sent : " + msg});
+        socket.emit('msg', {msg: "you sent : " + msg});
     })
 });
 

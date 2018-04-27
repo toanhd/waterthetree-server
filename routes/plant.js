@@ -47,7 +47,7 @@ router.patch('/', async function (req, res, next) {
         if (!plant) {
             console.log('No plant found');
             return res.status(404).json({
-                success:0,
+                success: 0,
                 title: 'No plant found',
                 error: {message: 'Plant not found'}
             })
@@ -69,15 +69,15 @@ router.patch('/', async function (req, res, next) {
                 }
             },
             {upsert: true});
-        res.send({
-            success:1,
+        res.send.status(500).json({
+            success: 1,
             plantResult: plantResult
-        });
+        })        ;
     }
     catch (err) {
         console.log(err);
         return res.status(500).json({
-            success:0,
+            success: 0,
             title: 'An error occurred',
             error: err
         })
