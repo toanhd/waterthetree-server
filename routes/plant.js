@@ -69,7 +69,7 @@ router.patch('/', async function (req, res, next) {
                 }
             },
             {upsert: true});
-        res.status(500).json({
+        res.status(201).json({
             success: 1,
             plantResult: plantResult
         });
