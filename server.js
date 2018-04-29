@@ -31,8 +31,8 @@ app.use('/water-resource', waterRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//     console.log('catch 404');
-// });
+app.use(function (req, res, next) {
+    console.log('catch 404');
+});
 
 module.exports = app;
