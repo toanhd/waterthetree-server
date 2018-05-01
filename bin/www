@@ -36,9 +36,9 @@ io.on('connection', function (socket) {
         console.log(tree);
         socket.broadcast.emit('waterlvl', {tree: tree});
     });
-    socket.on('user-position', function (user) {
+    socket.on('userposition', function (user) {
         console.log(user);
-        socket.broadcast.emit('userposition', {tree: user});
+        socket.broadcast.emit('userposition', {user: user});
     })
 });
 
