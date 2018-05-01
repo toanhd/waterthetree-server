@@ -52,27 +52,35 @@ router.patch('/', async function (req, res, next) {
                 error: {message: 'Plant not found'}
             })
         }
-        plant.current_water_level = req.body.current_water_level;
-        const plantResult = await plant.save();
+        if (plant.current_water_level < plant.max_water_level) {
 
-        // Update history
-        const {user_id, water_level} = req.body;
-        const historyResult = await History.update(
-            {plant: plant.id},
-            {
-                $push: {
-                    "detail": {
-                        user_id: user_id,
-                        timestamp: new Date(),
-                        water_level: water_level
+            plant.current_water_level++;
+            // plant.current_water_level = req.body.current_water_level;
+            const plantResult = await plant.save();
+
+            // Update history
+            const {user_id, water_level} = req.body;
+            const historyResult = await History.update(
+                {plant: plant.id},
+                {
+                    $push: {
+                        "detail": {
+                            user_id: user_id,
+                            timestamp: new Date(),
+                            water_level: water_level
+                        }
                     }
-                }
-            },
-            {upsert: true});
-        res.status(201).json({
-            success: 1,
-            plantResult: plantResult
-        });
+                },
+                {upsert: true});
+            res.status(201).json({
+                success: 1,
+                plantResult: plantResult
+            });
+        } else {
+            res.status(200).json({
+                success: 0
+            })
+        }
     }
     catch (err) {
         console.log(err);

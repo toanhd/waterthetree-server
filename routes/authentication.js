@@ -19,14 +19,14 @@ router.post('/login', function (req, res, next) {
     User.findOne({email: req.body.email},
         function (err, user) {
             if (err) {
-                console.log(err);
+                // console.log(err);
                 return res.status(500).json({
                     title: 'An error occurred',
                     error: err
                 })
             }
             if (!user) {
-                console.log(err);
+                // console.log(err);
                 return res.status(404).json({
                     title: 'No User found',
                     error: {message: 'User not found'}
