@@ -1,37 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const sha256 = require('sha256');
-
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 router.post('/login', function (req, res, next) {
-    User.findOne({email: req.body.email}, function (err, user) {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: err
-            })
-        }
-        if (!user) {
-            console.log(err);
-            return res.status(404).json({
-                title: 'No User found',
-                error: {message: 'User not found'}
-            })
-        }
-        if (sha256(req.body.password) === user.password) {
-            return res.status(200).json({
-                login:true,
-                user: user
-            })
-        }
-        else {
-            res.send({
-                login:false
-            })
-        }
-    })
+    User.findOne({email: req.body.email},
+        function (err, user) {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                })
+            }
+            if (!user) {
+                console.log(err);
+                return res.status(404).json({
+                    title: 'No User found',
+                    error: {message: 'User not found'}
+                })
+            }
+            const token = jwt.sign({user: user}, 'water-tree-the-key', {expiresIn: 7200});
+            if (sha256(req.body.password) === user.password) {
+                return res.status(200).json({
+                    login: true,
+                    userID: user._id,
+                    token: token
+                })
+            }
+            else {
+                res.send({
+                    login: false
+                })
+            }
+        })
 });
 
 router.get('/:id', function (req, res, next) {
